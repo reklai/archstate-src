@@ -2,35 +2,39 @@
     "label" : "lock",
     "action" : "swaylock -f -C $HOME/.config/swaylock/config",
     "text" : "Lock",
-    "keybind" : "l"
+    "keybind" : "l",
+    "height" : 0.82,
+    "width" : 0.5
 }
 {
     "label" : "suspend",
     "action" : "systemctl suspend",
     "text" : "Suspend",
-    "keybind" : "u"
-}
-{
-    "label" : "hibernate",
-    "action" : "systemctl hibernate",
-    "text" : "Hibernate",
-    "keybind" : "h"
+    "keybind" : "u",
+    "height" : 0.82,
+    "width" : 0.5
 }
 {
     "label" : "logout",
-    "action" : "loginctl terminate-user $USER",
+    "action" : "mmsg dispatch quit",
     "text" : "Logout",
-    "keybind" : "e"
+    "keybind" : "e",
+    "height" : 0.82,
+    "width" : 0.5
 }
 {
     "label" : "shutdown",
     "action" : "systemctl poweroff",
     "text" : "Shutdown",
-    "keybind" : "s"
+    "keybind" : "s",
+    "height" : 0.82,
+    "width" : 0.5
 }
 {
     "label" : "reboot",
     "action" : "systemctl reboot",
     "text" : "Reboot",
-    "keybind" : "r"
+    "keybind" : "r",
+    "height" : 0.82,
+    "width" : 0.5
 }
