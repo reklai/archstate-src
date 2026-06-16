@@ -38,7 +38,6 @@
 }
 
 .background,
-window,
 dialog {
   background-color: @window_bg_color;
   color: @window_fg_color;

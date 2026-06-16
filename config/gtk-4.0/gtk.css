@@ -1,1 +1,1 @@
-@import url("macos.css");
+/* Shell surfaces are styled in their own configs, not through global GTK CSS. */

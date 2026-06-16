@@ -7,5 +7,5 @@ set -u
 if pgrep -x pavucontrol >/dev/null 2>&1; then
   pkill -x pavucontrol
 else
-  setsid -f pavucontrol >/dev/null 2>&1
+  GTK_THEME=Adwaita:dark setsid -f pavucontrol >/dev/null 2>&1
 fi
