@@ -9,6 +9,10 @@ case "$dir" in
 esac
 
 focused="$(mmsg get focusing-client)"
+if jq -e '(.is_fullscreen // false) or (.is_fakefullscreen // false) or (.is_maximized // false)' <<<"$focused" >/dev/null; then
+  exit 0
+fi
+
 monitor="$(jq -r '.monitor // empty' <<<"$focused")"
 tag="$(jq -r '.tags[0] // empty' <<<"$focused")"
 [ -n "$monitor" ] && [ -n "$tag" ] || exit 0
