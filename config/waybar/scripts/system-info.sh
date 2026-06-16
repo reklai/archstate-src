@@ -137,7 +137,7 @@ memory_module() {
 
 disk_module() {
   local icon fs size used avail pct mount pct_num
-  icon=$(printf '\uf0a0')
+  icon=$(printf '\uf1c0')
   read -r fs size used avail pct mount < <(df -h / | awk 'NR == 2 { print $1, $2, $3, $4, $5, $6 }')
   pct_num="${pct%\%}"
 
