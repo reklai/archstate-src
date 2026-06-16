@@ -55,3 +55,10 @@ if [ "$dir" = "next" ]; then
     mmsg dispatch "exchange_stack_client,next" "client,${master_id}" >/dev/null
   done
 fi
+
+# Land both focus AND the cursor on the new master. The exchange loop warps the
+# cursor to the demoted old master, so focus a stack window (the old master), then
+# glide left onto the new master: focusdir focuses and warps in one move (same
+# left/right hop focus-toggle.sh relies on). Assumes a master-on-left tile layout.
+mmsg dispatch focusid "client,${master_id}" >/dev/null
+mmsg dispatch focusdir,left >/dev/null

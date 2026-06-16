@@ -46,6 +46,7 @@
 background-opacity = 0.65
 background-blur = false
 window-decoration = false
+font-family = "Fira Mono"
 font-family = "FiraCode Nerd Font Mono"
 background = #000000
 command = /usr/bin/bash
