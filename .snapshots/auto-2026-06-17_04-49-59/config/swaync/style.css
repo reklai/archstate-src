@@ -8,7 +8,6 @@
 @define-color term_yellow rgb(255, 214, 10);
 @define-color term_red rgb(255, 69, 58);
 @define-color term_blue rgb(100, 210, 255);
-@define-color term_window_border rgb(91, 104, 128); /* mango window border (#5b6880) */
 
 * {
   font-family: "FiraCode Nerd Font Mono", "MesloLGLDZ Nerd Font", monospace;
@@ -24,7 +23,7 @@ blankwindow,
 }
 
 .floating-notifications {
-  margin-top: 15px;
+  margin-top: 16px;
 }
 
 .notification-row {
@@ -44,8 +43,8 @@ blankwindow,
 .notification-row .notification-background .notification,
 .control-center {
   background: @term_bg;
-  border: 1px solid @term_window_border;
-  border-radius: 10px;
+  border: 1px solid @term_border;
+  border-radius: 8px;
   box-shadow: none;
   color: @term_text;
 }
@@ -185,7 +184,7 @@ blankwindow,
 }
 
 .widget-dnd > label {
-  color: @term_text;
+  color: @term_blue;
   font-weight: 700;
 }
 

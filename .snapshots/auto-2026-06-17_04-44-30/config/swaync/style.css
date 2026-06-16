@@ -1,6 +1,6 @@
-@define-color term_bg rgb(9, 12, 16);
-@define-color term_panel rgb(13, 17, 23);
-@define-color term_panel_hover rgb(23, 32, 42);
+@define-color term_bg rgba(9, 12, 16, 0.97);
+@define-color term_panel rgba(13, 17, 23, 0.98);
+@define-color term_panel_hover rgba(23, 32, 42, 0.98);
 @define-color term_border rgba(120, 132, 150, 0.28);
 @define-color term_text rgb(230, 237, 243);
 @define-color term_muted rgb(139, 148, 158);
@@ -8,7 +8,6 @@
 @define-color term_yellow rgb(255, 214, 10);
 @define-color term_red rgb(255, 69, 58);
 @define-color term_blue rgb(100, 210, 255);
-@define-color term_window_border rgb(91, 104, 128); /* mango window border (#5b6880) */
 
 * {
   font-family: "FiraCode Nerd Font Mono", "MesloLGLDZ Nerd Font", monospace;
@@ -24,7 +23,7 @@ blankwindow,
 }
 
 .floating-notifications {
-  margin-top: 15px;
+  margin-top: 16px;
 }
 
 .notification-row {
@@ -44,9 +43,9 @@ blankwindow,
 .notification-row .notification-background .notification,
 .control-center {
   background: @term_bg;
-  border: 1px solid @term_window_border;
-  border-radius: 10px;
-  box-shadow: none;
+  border: 1px solid @term_border;
+  border-radius: 8px;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.46);
   color: @term_text;
 }
 
@@ -185,7 +184,7 @@ blankwindow,
 }
 
 .widget-dnd > label {
-  color: @term_text;
+  color: @term_blue;
   font-weight: 700;
 }
 
