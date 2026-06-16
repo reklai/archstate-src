@@ -1,0 +1,7 @@
+#network {
+  color: #9aa3af;
+}
+
+#network.disconnected {
+  color: #9aa3af;
+}

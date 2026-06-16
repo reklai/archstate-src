@@ -1,0 +1,84 @@
+// Waybar — Mango (DWL). Icons via \u escapes (survive PUA-stripping editors); all modules centered.
+{
+  "layer": "top", "position": "top", "height": 33,
+  "margin-top": 4, "margin-left": 6, "margin-right": 6, "spacing": 4,
+
+  "modules-left": [],
+  "modules-center": [
+    "custom/sys-cpu", "custom/sys-memory", "custom/sys-disk", "custom/sys-temp",
+    "custom/keyd", "clock", "custom/wallpaper",
+    "custom/swaync", "network", "bluetooth", "wireplumber", "custom/sys-battery"
+  ],
+  "modules-right": [],
+
+  "custom/sys-cpu": {
+    "exec": "/home/reklai/.config/waybar/scripts/system-info.sh cpu",
+    "return-type": "json", "interval": 2, "tooltip": true
+  },
+  "custom/sys-memory": {
+    "exec": "/home/reklai/.config/waybar/scripts/system-info.sh memory",
+    "return-type": "json", "interval": 5, "tooltip": true
+  },
+  "custom/sys-disk": {
+    "exec": "/home/reklai/.config/waybar/scripts/system-info.sh disk",
+    "return-type": "json", "interval": 30, "tooltip": true
+  },
+  "custom/sys-temp": {
+    "exec": "/home/reklai/.config/waybar/scripts/system-info.sh temperature",
+    "return-type": "json", "interval": 5, "tooltip": true
+  },
+
+  "custom/keyd": {
+    "exec": "/home/reklai/.config/waybar/scripts/keyd-status.sh",
+    "return-type": "json", "interval": 3, "signal": 8,
+    "on-click": "/home/reklai/.config/waybar/scripts/keyd-toggle.sh"
+  },
+  "clock": {
+    "interval": 1, "format": "<span font_family=\"FiraCode Nerd Font Mono\">{:%a (%d -> %H%M)}</span>",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>"
+  },
+  "custom/wallpaper": {
+    "format": "<span font_family=\"Symbols Nerd Font\" size=\"16000\">\uf03e</span>",
+    "on-click": "/home/reklai/.config/waybar/scripts/wallpaper.sh pick",
+    "tooltip-format": "Click: choose wallpaper"
+  },
+
+  "custom/swaync": {
+    "exec": "swaync-client -swb", "return-type": "json", "format": "<span font_family=\"Symbols Nerd Font\" size=\"16000\">{icon}</span>",
+    "format-icons": {
+      "notification": "\uf0f3", "none": "\uf0a2",
+      "dnd-notification": "\uf1f6", "dnd-none": "\uf1f7",
+      "inhibited-notification": "\uf0f3", "inhibited-none": "\uf0a2",
+      "dnd-inhibited-notification": "\uf1f6", "dnd-inhibited-none": "\uf1f7"
+    },
+    "on-click": "swaync-client -t -sw", "on-click-right": "swaync-client -d -sw",
+    "escape": true, "tooltip": true
+  },
+  "network": {
+    "interval": 5,
+    "format-wifi": "<span font_family=\"Symbols Nerd Font\" size=\"16000\">\uf1eb</span>  <span font_family=\"FiraCode Nerd Font Mono\">{signalStrength}%</span>",
+    "format-ethernet": "<span font_family=\"Symbols Nerd Font\" size=\"16000\">\uf0e8</span>",
+    "format-disconnected": "<span font_family=\"Symbols Nerd Font\" size=\"16000\">\uf05e</span>",
+    "tooltip-format-wifi": "{essid}  ({signalStrength}%)\nClick to change network",
+    "tooltip-format-ethernet": "{ifname}",
+    "tooltip-format-disconnected": "Disconnected — click to connect",
+    "on-click": "/home/reklai/.config/waybar/scripts/wifi-menu.sh"
+  },
+  "bluetooth": {
+    "format": "<span font_family=\"Symbols Nerd Font\" size=\"16000\">\uf293</span>", "format-disabled": "<span font_family=\"Symbols Nerd Font\" size=\"16000\">\uf294</span>",
+    "format-connected": "<span font_family=\"Symbols Nerd Font\" size=\"16000\">\uf293</span>  <span font_family=\"FiraCode Nerd Font Mono\">{num_connections}</span>",
+    "tooltip-format": "{controller_alias}\nClick to manage",
+    "tooltip-format-connected": "{device_enumerate}\nClick to manage",
+    "on-click": "/home/reklai/.config/waybar/scripts/bt-menu.sh"
+  },
+  "wireplumber": {
+    "format": "<span font_family=\"Symbols Nerd Font\" size=\"16000\">\uf028</span>  <span font_family=\"FiraCode Nerd Font Mono\">{volume}%</span>", "format-muted": "<span font_family=\"Symbols Nerd Font\" size=\"16000\">\uf026</span>",
+    "on-click": "/home/reklai/.config/waybar/scripts/audio.sh", "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "scroll-step": 5
+  },
+  "custom/sys-battery": {
+    "exec": "/home/reklai/.config/waybar/scripts/system-info.sh battery",
+    "return-type": "json", "interval": 30, "signal": 9, "tooltip": true,
+    "on-click": "/home/reklai/.config/waybar/scripts/power-profile.sh"
+  }
+}
