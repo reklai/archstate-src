@@ -1,0 +1,14 @@
+#temperature,
+#custom-sys-temp {
+  color: #9aa3af;
+}
+
+#temperature.warning,
+#custom-sys-temp.warning {
+  color: #9aa3af;
+}
+
+#temperature.critical,
+#custom-sys-temp.critical {
+  color: #9aa3af;
+}
