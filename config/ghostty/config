@@ -43,7 +43,7 @@
 # # Empty values are used to reset config keys to default.
 # key =
 #  Terminal Decorations
-background-opacity = 0.65
+background-opacity = 1.0
 background-blur = false
 window-decoration = false
 font-family = "Fira Mono"

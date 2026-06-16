@@ -9,13 +9,14 @@
 
 window#waybar {
   background: transparent;
-  color: #e5e9f0;
+  color: #c7c7cc;
 }
 
 .modules-center {
-  background: rgba(13, 17, 23, 0.96);
-  border: 1px solid rgba(136, 160, 190, 0.18);
-  border-radius: 12px;
-  padding: 0 6px;
+  background: rgb(28, 28, 30);
+  border: 1px solid #3a3a3c;
+  border-radius: 14px;
+  box-shadow: none;
+  padding: 0 7px;
   margin: 2px 0;
 }

@@ -2,9 +2,23 @@
 set -uo pipefail
 # Toggle: if the picker (fuzzel) is already open, clicking the icon again closes it.
 if pgrep -x fuzzel >/dev/null 2>&1; then pkill -x fuzzel; exit 0; fi
-notify-send -t 2500 "Wi-Fi" "Scanning networks..."
+
+notice_file="$(mktemp "${XDG_RUNTIME_DIR:-/tmp}/wifi-scan-notice.XXXXXX")"
+(
+  sleep 0.8
+  notify-send -a waybar -e -u low -t 1200 -p "Wi-Fi" "Scanning networks..." >"$notice_file" 2>/dev/null
+) &
+notice_pid="$!"
+
 nmcli dev wifi rescan >/dev/null 2>&1 || true
 mapfile -t rows < <(nmcli -t -f ACTIVE,SIGNAL,SSID dev wifi list 2>/dev/null | awk -F: 'NF>=3 && $3!=""')
+
+if kill -0 "$notice_pid" 2>/dev/null; then
+  kill "$notice_pid" 2>/dev/null || true
+fi
+wait "$notice_pid" 2>/dev/null || true
+rm -f "$notice_file"
+
 declare -A SSID; menu=""
 for r in "${rows[@]}"; do
   active="${r%%:*}"; rest="${r#*:}"; sig="${rest%%:*}"; ssid="${rest#*:}"

@@ -1,14 +1,14 @@
 #temperature,
 #custom-sys-temp {
-  color: #9aa3af;
+  color: #c7c7cc;
 }
 
 #temperature.warning,
 #custom-sys-temp.warning {
-  color: #9aa3af;
+  color: #c7c7cc;
 }
 
 #temperature.critical,
 #custom-sys-temp.critical {
-  color: #9aa3af;
+  color: #c7c7cc;
 }

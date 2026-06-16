@@ -1,9 +1,9 @@
 tooltip {
-  background: #0d1117;
-  border: 1px solid #3b4252;
-  border-radius: 8px;
+  background: rgb(28, 28, 30);
+  border: 1px solid #3a3a3c;
+  border-radius: 10px;
 }
 
 tooltip label {
-  color: #e5e9f0;
+  color: #e5e5ea;
 }

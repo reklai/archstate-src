@@ -1,14 +1,13 @@
-@define-color term_bg rgb(9, 12, 16);
-@define-color term_panel rgb(13, 17, 23);
-@define-color term_panel_hover rgb(23, 32, 42);
-@define-color term_border rgba(120, 132, 150, 0.28);
-@define-color term_text rgb(230, 237, 243);
-@define-color term_muted rgb(139, 148, 158);
-@define-color term_accent rgb(143, 179, 207);
-@define-color term_yellow rgb(255, 214, 10);
-@define-color term_red rgb(255, 69, 58);
-@define-color term_blue rgb(100, 210, 255);
-@define-color term_window_border rgb(91, 104, 128); /* mango window border (#5b6880) */
+@define-color mac_window rgb(28, 28, 30);
+@define-color mac_panel rgb(44, 44, 46);
+@define-color mac_panel_hover rgb(58, 58, 60);
+@define-color mac_border rgb(58, 58, 60);
+@define-color mac_text rgb(229, 229, 234);
+@define-color mac_muted rgb(161, 161, 170);
+@define-color mac_accent rgb(199, 199, 204);
+@define-color mac_yellow rgb(255, 214, 10);
+@define-color mac_red rgb(255, 69, 58);
+@define-color mango_focus rgb(123, 132, 148);
 
 * {
   font-family: "FiraCode Nerd Font Mono", "MesloLGLDZ Nerd Font", monospace;
@@ -43,11 +42,11 @@ blankwindow,
 
 .notification-row .notification-background .notification,
 .control-center {
-  background: @term_bg;
-  border: 1px solid @term_window_border;
-  border-radius: 10px;
+  background: @mac_window;
+  border: 1px solid @mango_focus;
+  border-radius: 14px;
   box-shadow: none;
-  color: @term_text;
+  color: @mac_text;
 }
 
 .notification-row .notification-background .notification .notification-default-action,
@@ -56,16 +55,14 @@ blankwindow,
 .control-center .control-center-list .notification .notification-action {
   background: transparent;
   border: none;
-  border-radius: 6px;
+  border-radius: 10px;
   box-shadow: none;
-  color: @term_text;
+  color: @mac_text;
 }
 
 .notification-row .notification-background .notification .notification-default-action:hover,
-.notification-row .notification-background .notification .notification-action:hover,
-.control-center .control-center-list .notification .notification-default-action:hover,
-.control-center .control-center-list .notification .notification-action:hover {
-  background: @term_panel_hover;
+.control-center .control-center-list .notification .notification-default-action:hover {
+  background: transparent;
 }
 
 .notification-content {
@@ -74,45 +71,45 @@ blankwindow,
 
 .notification-content .image,
 .notification-content .app-icon {
-  border-radius: 6px;
+  border-radius: 8px;
 }
 
 .notification-row .notification-background .notification .notification-default-action .notification-content .text-box .summary,
 .control-center .control-center-list .notification .notification-default-action .notification-content .text-box .summary {
-  color: @term_text;
+  color: @mac_text;
   font-weight: 700;
   text-shadow: none;
 }
 
 .notification-row .notification-background .notification .notification-default-action .notification-content .text-box .time,
 .control-center .control-center-list .notification .notification-default-action .notification-content .text-box .time {
-  color: @term_accent;
+  color: @mac_accent;
   font-weight: 600;
   text-shadow: none;
 }
 
 .notification-row .notification-background .notification .notification-default-action .notification-content .text-box .body,
 .control-center .control-center-list .notification .notification-default-action .notification-content .text-box .body {
-  color: @term_muted;
+  color: @mac_muted;
   text-shadow: none;
 }
 
 .notification-action {
-  background: rgba(23, 32, 42, 0.95);
-  border: 1px solid rgba(120, 132, 150, 0.20);
-  border-radius: 6px;
-  color: @term_text;
+  background: rgb(44, 44, 46);
+  border: 1px solid @mac_border;
+  border-radius: 10px;
+  color: @mac_text;
   margin: 0 6px 8px 6px;
   padding: 6px 10px;
 }
 
 .notification-action:hover {
-  background: @term_panel_hover;
-  border-color: rgba(143, 179, 207, 0.32);
+  background: @mac_panel_hover;
+  border-color: rgb(72, 72, 74);
 }
 
 .close-button {
-  background: @term_red;
+  background: @mac_red;
   border: none;
   border-radius: 999px;
   box-shadow: none;
@@ -138,78 +135,78 @@ blankwindow,
 }
 
 .control-center .control-center-list-placeholder {
-  color: @term_muted;
+  color: @mac_muted;
 }
 
 .widget {
-  background: @term_panel;
-  border: 1px solid @term_border;
-  border-radius: 8px;
-  color: @term_text;
+  background: @mac_panel;
+  border: 1px solid @mac_border;
+  border-radius: 12px;
+  color: @mac_text;
   margin: 6px;
   padding: 8px 10px;
 }
 
 .widget-title {
   background: transparent;
-  border-bottom: 1px solid @term_border;
-  color: @term_text;
+  border-bottom: 1px solid @mac_border;
+  color: @mac_text;
   margin: 0 0 6px 0;
   padding: 8px 10px 10px 10px;
 }
 
 .widget-title > label {
-  color: @term_accent;
+  color: @mac_accent;
   font-weight: 700;
 }
 
 .widget-title > button {
-  background: rgba(255, 214, 10, 0.12);
-  border: 1px solid rgba(255, 214, 10, 0.26);
-  border-radius: 6px;
-  color: @term_yellow;
+  background: rgb(44, 44, 46);
+  border: 1px solid @mac_border;
+  border-radius: 10px;
+  color: @mac_accent;
   padding: 4px 8px;
 }
 
 .widget-title > button:hover {
-  background: rgba(255, 214, 10, 0.20);
+  background: @mac_panel_hover;
 }
 
 .widget-dnd {
-  background: @term_panel;
-  border: 1px solid @term_border;
-  border-radius: 8px;
-  color: @term_text;
+  background: @mac_panel;
+  border: 1px solid @mac_border;
+  border-radius: 12px;
+  color: @mac_text;
   margin: 6px;
   padding: 8px 10px;
 }
 
 .widget-dnd > label {
-  color: @term_text;
+  color: @mac_text;
   font-weight: 700;
 }
 
 .widget-dnd > switch {
-  background: rgba(23, 32, 42, 0.95);
-  border: 1px solid @term_border;
+  background: rgb(58, 58, 60);
+  border: 1px solid @mac_border;
   border-radius: 999px;
 }
 
 .widget-dnd > switch:checked {
-  background: rgba(143, 179, 207, 0.20);
-  border-color: rgba(143, 179, 207, 0.40);
+  background: rgb(72, 72, 74);
+  border-color: rgb(99, 99, 102);
 }
 
 .widget-dnd > switch slider {
-  background: @term_text;
+  background: @mac_text;
   border-radius: 999px;
 }
 
 .notification.critical {
-  border-color: rgba(255, 69, 58, 0.65);
+  border-color: rgb(255, 69, 58);
 }
 
 .notification.critical .summary,
 .notification.critical .time {
-  color: @term_red;
+  color: @mac_red;
 }
