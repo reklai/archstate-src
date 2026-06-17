@@ -1,0 +1,22 @@
+/* Font, bar surface, and the centered pill container. */
+
+* {
+  font-family: "FiraCode Nerd Font Mono", "MesloLGLDZ Nerd Font", "Symbols Nerd Font";
+  font-size: 13px;
+  font-weight: 500;
+  min-height: 0;
+}
+
+window#waybar {
+  background: transparent;
+  color: #c7c7cc;
+}
+
+.modules-center {
+  background: rgb(28, 28, 30);
+  border: 1px solid #3a3a3c;
+  border-radius: 14px;
+  box-shadow: none;
+  padding: 0 7px;
+  margin: 2px 0;
+}

@@ -1,0 +1,70 @@
+/* Shared spacing and hover behavior for every visible Waybar module. */
+
+#cpu,
+#memory,
+#disk,
+#temperature,
+#custom-sys-cpu,
+#custom-sys-memory,
+#custom-sys-disk,
+#custom-sys-temp,
+#clock,
+#network,
+#bluetooth,
+#wireplumber,
+#battery,
+#custom-sys-battery,
+#custom-keyd,
+#custom-wallpaper,
+#custom-swaync {
+  padding: 0 9px;
+  color: #c7c7cc;
+}
+
+/* Clickable modules render as GtkButton. Strip toolkit button effects first,
+   then apply one consistent rounded hover highlight. */
+#cpu,
+#memory,
+#disk,
+#temperature,
+#battery,
+#custom-sys-cpu,
+#custom-sys-memory,
+#custom-sys-disk,
+#custom-sys-temp,
+#custom-sys-battery,
+#custom-keyd,
+#custom-wallpaper,
+#custom-swaync,
+#network,
+#bluetooth,
+#wireplumber {
+  border: none;
+  box-shadow: none;
+  background-image: none;
+  background-color: transparent;
+  transition: none;
+}
+
+#cpu:hover,
+#memory:hover,
+#disk:hover,
+#temperature:hover,
+#battery:hover,
+#custom-sys-cpu:hover,
+#custom-sys-memory:hover,
+#custom-sys-disk:hover,
+#custom-sys-temp:hover,
+#custom-sys-battery:hover,
+#custom-keyd:hover,
+#custom-wallpaper:hover,
+#custom-swaync:hover,
+#network:hover,
+#bluetooth:hover,
+#wireplumber:hover {
+  border: none;
+  box-shadow: none;
+  background-image: none;
+  background-color: #303033;
+  border-radius: 9px;
+}

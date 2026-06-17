@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xxd)",
+      "Bash(fc-list)",
+      "Bash(cd *)",
+      "Bash(python3 -)",
+      "Bash(xxd -p)",
+      "Bash(systemctl is-active *)",
+      "Bash(echo \"  active now? rc=$?\")",
+      "Bash(systemctl stop *)",
+      "Bash(echo \"  stop rc=$?\")",
+      "Bash(timeout 3 waybar -c config.jsonc -s style.css)",
+      "Bash(kill -SIGUSR2 20160)",
+      "Bash(scripts/keyd-status.sh)",
+      "WebSearch"
+    ]
+  }
+}
