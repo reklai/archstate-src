@@ -60,9 +60,9 @@ if [ "$dir" = "next" ]; then
   done
 fi
 
-# Land both focus AND the cursor on the new master. The exchange loop warps the
-# cursor to the demoted old master, so focus a stack window (the old master), then
-# glide left onto the new master: focusdir focuses and warps in one move (same
-# left/right hop focus-toggle.sh relies on). Assumes a master-on-left tile layout.
-mmsg dispatch focusid "client,${master_id}" >/dev/null
+# Land both focus and pointer state on the new master. focusid alone can leave
+# Mango's pointer surface/cursor image stale, so force a focusdir hop away and
+# back; the final focusdir,left is the cursor-warping pointer-enter on master.
+mmsg dispatch focusid "client,${target_id}" >/dev/null
+mmsg dispatch focusdir,right >/dev/null
 mmsg dispatch focusdir,left >/dev/null
