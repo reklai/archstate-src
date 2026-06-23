@@ -1,9 +1,9 @@
 require("reklai.set")
 require("reklai.remap")
 
--- Set Active theme: "tokyo" or "nordic".
+-- Set Active theme: "tokyoSitruuna" or "nordic".
 -- Set before plugins load; each theme spec applies itself only when selected.
-vim.g.active_theme = "tokyo"
+vim.g.active_theme = "nordic"
 
 require("reklai.lazy_init")
 

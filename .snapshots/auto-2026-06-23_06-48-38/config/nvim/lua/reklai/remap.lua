@@ -1,27 +1,21 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Clear highlights on search when pressing <Esc> in normal mode
---  See `:help hlsearch`
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
-
 -- Quality of life to focus different panes using "vim" movement.
 -- Use <Cmd>wincmd ...<CR> (not <C-w>...) so these work in insert mode too:
 -- in insert mode <C-w> is the built-in delete-word, so a raw <C-w>h RHS would
 -- delete a word and insert a literal "h" instead of switching windows.
-vim.keymap.set({ "n" }, "<C-h>", "<Cmd>wincmd h<CR>", { desc = "Move focus to the left pane" })
-vim.keymap.set({ "n" }, "<C-l>", "<Cmd>wincmd l<CR>", { desc = "Move focus to the right pane" })
-vim.keymap.set({ "n" }, "<C-j>", "<Cmd>wincmd j<CR>", { desc = "Move focus to the bottom pane" })
-vim.keymap.set({ "n" }, "<C-k>", "<Cmd>wincmd k<CR>", { desc = "Move focus to the top pane" })
+vim.keymap.set({ "n", "i" }, "<C-h>", "<Cmd>wincmd h<CR>", { desc = "Move focus to the left pane" })
+vim.keymap.set({ "n", "i" }, "<C-l>", "<Cmd>wincmd l<CR>", { desc = "Move focus to the right pane" })
+vim.keymap.set({ "n", "i" }, "<C-j>", "<Cmd>wincmd j<CR>", { desc = "Move focus to the bottom pane" })
+vim.keymap.set({ "n", "i" }, "<C-k>", "<Cmd>wincmd k<CR>", { desc = "Move focus to the top pane" })
 
 -- Double check for information (future self)
 -- I believe the use-case worth it for rebinding
-vim.keymap.set({ "n" }, "<C-c>", "<Cmd>wincmd q<CR>", { desc = "Kill / Quit current window" })
-vim.keymap.set({ "n" }, "<C-v>", "<Cmd>vsplit<CR>", { desc = "Split current window" })
+vim.keymap.set({ "n", "i" }, "<C-c>", "<Cmd>wincmd q<CR>", { desc = "Kill / Quit current window" })
+vim.keymap.set({ "n", "i" }, "<C-v>", "<Cmd>vsplit<CR>", { desc = "Split current window" })
 
 -- Hover Information
--- Purpose 1 -> is to not use "K" for vim.lsp.buf.hover in Normal Mode
--- Purpose 2 -> is to not use "<C-s>" for vim.lsp.buf.signature_help default in Insert Mode
 vim.keymap.set({ "n", "i" }, "<C-q>", vim.lsp.buf.signature_help, { desc = "LSP signature help" })
 
 -- Take highlight text and move it up/down
