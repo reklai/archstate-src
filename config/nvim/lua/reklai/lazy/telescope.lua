@@ -68,13 +68,13 @@ return { -- Fuzzy Finder (files, lsp, etc)
 
 		-- See `:help telescope.builtin`
 		local builtin = require("telescope.builtin")
-		vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
-		vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by live [G]rep" })
-		vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
-		vim.keymap.set("n", "<leader>sp", builtin.buffers, { desc = "[ ] Find existing buffers" })
+		vim.keymap.set("n", "<leader>pf", builtin.find_files, { desc = "[S]earch [F]iles" })
+		vim.keymap.set("n", "<leader>pg", builtin.live_grep, { desc = "[S]earch by live [G]rep" })
+		vim.keymap.set("n", "<leader>pd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
+		vim.keymap.set("n", "<leader>pp", builtin.buffers, { desc = "[ ] Find existing buffers" })
 
 		-- Slightly advanced example of overriding default behavior and theme
-		vim.keymap.set("n", "<leader>sb", function()
+		vim.keymap.set("n", "<leader>pb", function()
 			-- You can pass additional configuration to Telescope to change the theme, layout, etc.
 			builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
 				winblend = 10,
@@ -84,7 +84,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
 
 		-- It's also possible to pass additional configuration options.
 		--  See `:help telescope.builtin.live_grep()` for information about particular keys
-		vim.keymap.set("n", "<leader>sl", function()
+		vim.keymap.set("n", "<leader>pl", function()
 			builtin.live_grep({
 				grep_open_files = true,
 				prompt_title = "Live Grep in Open Files",
@@ -92,7 +92,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
 		end, { desc = "[S]earch [/] in Open Files" })
 
 		-- Shortcut for searching your Neovim configuration files
-		vim.keymap.set("n", "<leader>sn", function()
+		vim.keymap.set("n", "<leader>pn", function()
 			builtin.find_files({ cwd = vim.fn.stdpath("config") })
 		end, { desc = "[S]earch [N]eovim files" })
 	end,

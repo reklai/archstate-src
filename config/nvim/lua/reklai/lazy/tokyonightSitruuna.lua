@@ -95,6 +95,9 @@ return {
 			hl.SignColumn = { fg = s.lighter_bg, bg = s.darker }
 			hl.ColorColumn = { bg = s.light_bg }
 			hl.Visual = { bg = s.selection }
+			hl.LspReferenceText = { bg = s.selection }
+			hl.LspReferenceRead = { bg = s.selection }
+			hl.LspReferenceWrite = { bg = s.selection, underline = true }
 			hl.MatchParen = { fg = s.special, bold = true }
 			hl.WinBar = { fg = s.fg, bg = s.lighter_bg }
 			hl.WinBarNC = { fg = s.fg_alt, bg = s.light_bg }

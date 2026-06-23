@@ -91,7 +91,7 @@ vim.opt.signcolumn = "yes" -- Always show the sign column (for things like diagn
 
 vim.opt.isfname:append("@-@") -- Add `@-@` to `isfname` to allow special characters like `-` in file names.
 
-vim.opt.updatetime = 50 -- Set the time (in milliseconds) for Neovim to wait before updating the display (e.g., after typing).
+vim.opt.updatetime = 400 -- Set the time (in milliseconds) for Neovim to wait before updating the display (e.g., after typing).
 
 vim.opt.colorcolumn = "80" -- Highlight column 80 to indicate line length limit (useful for code formatting).
 

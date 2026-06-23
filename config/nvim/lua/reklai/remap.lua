@@ -2,7 +2,6 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 -- Clear highlights on search when pressing <Esc> in normal mode
---  See `:help hlsearch`
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 -- Quality of life to focus different panes using "vim" movement.
@@ -43,7 +42,7 @@ vim.keymap.set("n", "K", "<nop>")
 vim.keymap.set({ "n", "x" }, "<leader>d", [["_d]], { desc = "Delete without yanking" })
 
 -- Replace selected text without overwriting clipboard
-vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste without yanking selection" })
+vim.keymap.set("x", "p", "P", { desc = "Paste while sending it void register" })
 
 -- lazy way to find and replace globally
 -- vim.keymap.set(
