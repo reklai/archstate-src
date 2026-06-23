@@ -4,11 +4,11 @@ set -euo pipefail
 BATTERY_PATH="${BATTERY_PATH:-/sys/class/power_supply/BAT0}"
 LOW_THRESHOLD="${LOW_THRESHOLD:-40}"
 HIGH_THRESHOLD="${HIGH_THRESHOLD:-60}"
-STATE_DIR="${STATE_DIR:-/var/lib/battery-charge-hysteresis}"
+STATE_DIR="${STATE_DIR:-/var/lib/battery-charge-probe}"
 STATE_FILE="${STATE_FILE:-$STATE_DIR/state}"
 
 die() {
-  printf 'battery-charge-hysteresis: %s\n' "$*" >&2
+  printf 'battery-charge-probe: %s\n' "$*" >&2
   exit 1
 }
 
@@ -45,39 +45,44 @@ case "$state" in
   charging|holding)
     ;;
   *)
-    if (( capacity >= HIGH_THRESHOLD )); then
-      state="holding"
-    else
+    if (( capacity <= LOW_THRESHOLD )); then
       state="charging"
+    else
+      state="holding"
     fi
     ;;
 esac
 
-if (( capacity >= HIGH_THRESHOLD )); then
-  state="holding"
-elif (( capacity <= LOW_THRESHOLD )); then
+if (( capacity <= LOW_THRESHOLD )); then
   state="charging"
+elif (( capacity >= HIGH_THRESHOLD )); then
+  state="holding"
 fi
 
-if [[ "$state" == "charging" ]]; then
-  target="$HIGH_THRESHOLD"
-else
-  target="$LOW_THRESHOLD"
-fi
+case "$state" in
+  charging)
+    target="$HIGH_THRESHOLD"
+    ;;
+  holding)
+    target="$LOW_THRESHOLD"
+    ;;
+  *)
+    die "invalid state: $state"
+    ;;
+esac
 
-current="unknown"
-if [[ -r "$threshold_file" ]]; then
-  IFS= read -r current < "$threshold_file" || true
-fi
-
+current="$(cat "$threshold_file" 2>/dev/null || true)"
 if [[ "$current" != "$target" ]]; then
   printf '%s\n' "$target" > "$threshold_file"
+  changed="yes"
+else
+  changed="no"
 fi
 
-tmp_state="$STATE_FILE.$$"
+tmp_state="$(mktemp "$STATE_DIR/state.XXXXXX")"
 printf '%s\n' "$state" > "$tmp_state"
 chmod 0644 "$tmp_state"
 mv "$tmp_state" "$STATE_FILE"
 
-printf 'capacity=%s state=%s threshold=%s previous_threshold=%s\n' \
-  "$capacity" "$state" "$target" "$current"
+printf 'capacity=%s low=%s high=%s state=%s threshold=%s previous_threshold=%s changed=%s\n' \
+  "$capacity" "$LOW_THRESHOLD" "$HIGH_THRESHOLD" "$state" "$target" "${current:-unknown}" "$changed"
