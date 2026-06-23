@@ -1,9 +1,23 @@
 require("reklai.set")
 require("reklai.remap")
 
--- Set Active theme: "tokyo" or "nordic".
+-- Set Active theme: "sitruuna", "opencode", or "nordic".
 -- Set before plugins load; each theme spec applies itself only when selected.
-vim.g.active_theme = "tokyo"
+-- "sitruuna" and "opencode" both reskin tokyonight.nvim via lazy/tokyonight.lua;
+-- their palettes live in lua/reklai/themes/{sitruuna,opencode}.lua.
+vim.g.active_theme = "sitruuna"
+
+-- Theme saturation scale (sitruuna + opencode only). Scales HSL saturation
+-- of the chromatic palette tokens at opts() time; greys are a no-op.
+-- 1.0 = original, 0.7 = 30% weaker, 0.0 = grayscale. Set before plugins load.
+vim.g.theme_saturation = 1.0
+
+-- Background transparency (all themes). When true, the editor background
+-- becomes transparent (Ghostty's background-opacity in the terminal config
+-- shows through). Floating windows use theme_opacity for a semi-opaque
+-- background so they stay readable over the transparent backdrop.
+vim.g.theme_transparent = true
+vim.g.theme_opacity = 0.8
 
 require("reklai.lazy_init")
 

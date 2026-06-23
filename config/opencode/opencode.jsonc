@@ -1,0 +1,13 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "agent": {
+    "plan": {
+      "model": "opencode-go/minimax-m3",
+      "variant": "thinking",
+    },
+    "build": {
+      "model": "opencode-go/glm-5.2",
+      "variant": "high",
+    },
+  },
+}

@@ -1,15 +1,20 @@
--- Theme: tokyonight.nvim, reskinned to closely resemble sitruuna.
+-- Theme: sitruuna palette + highlight mapping, used to reskin tokyonight.nvim.
 --
--- Why tokyonight instead of the original sitruuna.vim: tokyonight is an actively
--- maintained Lua theme with first-class Treesitter + LSP semantic-token support
--- and built-in integrations for the plugins used here (telescope, which-key,
--- mini.indentscope, noice, trouble, blink.cmp). We keep sitruuna's identity by
--- remapping the palette (on_colors) and the syntax/Treesitter/LSP groups
--- (on_highlights) to sitruuna's exact colors.
+-- Why tokyonight instead of the original sitruuna.vim: tokyonight is an
+-- actively maintained Lua theme with first-class Treesitter + LSP semantic-
+-- token support and built-in integrations for the plugins used here
+-- (telescope, which-key, mini.indentscope, noice, trouble, blink.cmp). We
+-- keep sitruuna's identity by remapping the palette (on_colors) and the
+-- syntax/Treesitter/LSP groups (on_highlights) to sitruuna's exact colors.
 --
--- The colorscheme is applied below in this spec's own config, only when
--- vim.g.active_theme == "tokyo" (set in lua/reklai/init.lua).
-local s = {
+-- Loaded by lazy/tokyonight.lua when vim.g.active_theme == "sitruuna". The
+-- returned opts table is passed to require("tokyonight").setup(); the
+-- dispatch to this module (or themes/opencode.lua) lives in the neutral
+-- tokyonight spec, not here.
+--
+-- Saturation: vim.g.theme_saturation (default 1.0) scales HSL saturation of
+-- the chromatic tokens in opts() time. Greys are a mathematical no-op.
+local palette = {
 	fg = "#d1d1d1",
 	fg_alt = "#a1a1a1",
 	comment = "#5c6366",
@@ -27,23 +32,31 @@ local s = {
 	lighter_bg = "#242629", -- winbar / statusline / float border
 	selection = "#2D3032", -- visual
 	statusline = "#34373a",
+	indent = "#8786b6", -- muted periwinkle (indent guide / float border)
 }
 
-return {
-	"folke/tokyonight.nvim",
-	lazy = false,
-	priority = 1000,
-	opts = {
+local function opts()
+	local s = require("reklai.themes.desaturate").palette(palette, vim.g.theme_saturation or 1.0)
+	local transparent = vim.g.theme_transparent == true
+	local opacity = vim.g.theme_opacity or 0.8
+	local blend = require("reklai.themes.desaturate").blend
+	-- Pre-compute the float backgrounds: either the original panel color
+	-- (opaque) or a blend toward black at the user's opacity (semi-opaque
+	-- over the transparent backdrop). UI chrome (CursorLine, Visual, WinBar,
+	-- StatusLine) keeps its solid bg regardless of transparency.
+	local float_bg = transparent and blend(s.lighter_bg, "#000000", opacity) or s.lighter_bg
+	local menu_bg = transparent and blend(s.light_bg, "#000000", opacity) or s.light_bg
+	return {
 		style = "night", -- darkest base, closest to sitruuna's near-black bg
-		transparent = false,
+		transparent = transparent,
 		terminal_colors = true,
 		styles = {
 			comments = { italic = false }, -- sitruuna comments are plain
 			keywords = { italic = false },
 			functions = {},
 			variables = {},
-			sidebars = "dark",
-			floats = "dark",
+			sidebars = transparent and "transparent" or "dark",
+			floats = transparent and "transparent" or "dark",
 		},
 		-- Map tokyonight's palette onto sitruuna's so un-overridden UI/plugin
 		-- groups harmonize, and terminal colors match.
@@ -81,18 +94,20 @@ return {
 		-- Treesitter (@...) and LSP semantic tokens (@lsp.type.*).
 		on_highlights = function(hl)
 			local kw = { fg = s.lemon, bold = true }
-			-- Editor / UI
-			hl.Normal = { fg = s.fg, bg = s.bg }
-			hl.NormalNC = { fg = s.fg, bg = s.bg }
-			-- Floating windows (LSP hover / signature / diagnostics): a lighter
-			-- surface than the editor bg + a visible blue border so the float
-			-- doesn't blend into the background.
-			hl.NormalFloat = { fg = s.fg, bg = s.lighter_bg }
-			hl.FloatBorder = { fg = s.type, bg = s.lighter_bg }
+			-- Editor / UI. When transparent, main editor surfaces get bg=none
+			-- (Ghostty's background-opacity shows through). UI chrome below
+			-- (CursorLine, Visual, WinBar, StatusLine, etc.) stays solid.
+			hl.Normal = { fg = s.fg, bg = transparent and "none" or s.bg }
+			hl.NormalNC = { fg = s.fg, bg = transparent and "none" or s.bg }
+			-- Floating windows use the pre-computed float_bg: solid when opaque,
+			-- blended toward black at the user's opacity when transparent, so
+			-- floats stay readable over the terminal's transparent backdrop.
+			hl.NormalFloat = { fg = s.fg, bg = float_bg }
+			hl.FloatBorder = { fg = s.indent, bg = float_bg }
 			hl.CursorLine = { bg = s.light_bg }
 			hl.CursorLineNr = { fg = s.special, bg = s.light_bg }
 			hl.LineNr = { fg = s.comment, bg = s.light_bg }
-			hl.SignColumn = { fg = s.lighter_bg, bg = s.darker }
+			hl.SignColumn = { fg = s.lighter_bg, bg = transparent and "none" or s.darker }
 			hl.ColorColumn = { bg = s.light_bg }
 			hl.Visual = { bg = s.selection }
 			hl.LspReferenceText = { bg = s.selection }
@@ -103,14 +118,17 @@ return {
 			hl.WinBarNC = { fg = s.fg_alt, bg = s.light_bg }
 			hl.StatusLine = { fg = s.fg, bg = s.lighter_bg }
 			hl.StatusLineNC = { fg = s.fg_alt, bg = s.light_bg }
-			hl.Pmenu = { fg = s.fg, bg = s.light_bg }
+			hl.Pmenu = { fg = s.fg, bg = menu_bg }
 			hl.PmenuSel = { fg = s.bg, bg = s.lemon }
-			hl.WinSeparator = { fg = s.lighter_bg, bg = s.bg }
+			hl.WinSeparator = { fg = s.lighter_bg, bg = transparent and "none" or s.bg }
 			hl.Folded = { fg = s.fg_alt, bg = s.statusline }
 			hl.NonText = { fg = s.comment }
 
-			-- Active indent scope guide (blue, matching the theme's type color)
-			hl.MiniIndentscopeSymbol = { fg = s.type, nocombine = true }
+			-- Active indent scope guide (muted periwinkle -- a dedicated
+			-- non-syntax color like nordic's pink, so the indent line never
+			-- competes with type/class/namespace tokens; the quietest of
+			-- the three themes' guides)
+			hl.MiniIndentscopeSymbol = { fg = s.indent, nocombine = true }
 			hl.MiniIndentscopeSymbolOff = { fg = s.error, nocombine = true }
 
 			-- Legacy syntax groups
@@ -232,13 +250,7 @@ return {
 			hl["@lsp.type.number"] = { fg = s.constant }
 			hl["@lsp.type.comment"] = { fg = s.comment }
 		end,
-	},
-	config = function(_, opts)
-		-- Only build tokyonight's highlight tables and apply it when this theme
-		-- is selected; otherwise the spec loads but does no work (mirrors nordic.lua).
-		if vim.g.active_theme == "tokyo" then
-			require("tokyonight").setup(opts)
-			vim.cmd.colorscheme("tokyonight")
-		end
-	end,
-}
+	}
+end
+
+return { opts = opts }
