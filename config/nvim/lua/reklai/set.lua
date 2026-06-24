@@ -97,7 +97,7 @@ vim.opt.colorcolumn = "80" -- Highlight column 80 to indicate line length limit 
 
 -- Move the status line to the top: show file/position info in a winbar at the
 -- top of each window, and hide the bottom statusline. The bar's WinBar/WinBarNC
--- colors are set by the active theme spec (nordic.lua / tokyonight.lua).
+-- colors are set by the active theme spec.
 -- The path is shown absolute; in oil buffers the `oil://` prefix is stripped so
 -- oil gets a clean absolute directory path from the same global bar (no per-oil
 -- override needed).
