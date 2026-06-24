@@ -153,12 +153,10 @@ local function opts()
 			hl.IncSearch = { fg = bg, bg = s.primary }
 			hl.CurSearch = { fg = bg, bg = s.primary }
 
-			-- Active indent scope guide (opencode info cyan -- the operator
-			-- color, a quiet cool counterpoint to the warm keyword/function
-			-- palette; matches the sitruuna convention of sharing the
-			-- indent-guide color with FloatBorder).
+			-- Active indent scope guide (opencode info cyan -- uniform across
+			-- the block; SymbolOff matches so border lines aren't flagged).
 			hl.MiniIndentscopeSymbol = { fg = s.info, nocombine = true }
-			hl.MiniIndentscopeSymbolOff = { fg = s.error, nocombine = true }
+			hl.MiniIndentscopeSymbolOff = { fg = s.info, nocombine = true }
 
 			-- Legacy syntax groups
 			hl.Comment = { fg = cmt, italic = true }

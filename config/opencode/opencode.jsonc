@@ -1,13 +1,59 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "agent": {
-    "build": {
-      "model": "opencode-go/minimax-m3",
-      "variant": "thinking",
+  "model": "opencode-go/deepseek-v4-pro",
+  "small_model": "opencode-go/minimax-m3",
+  "tool_output": {
+    "max_lines": 1000,
+    "max_bytes": 60000,
+  },
+  "command": {
+    "research": {
+      "description": "Use the research agent for codebase or documentation exploration",
+      "agent": "explore",
+      "model": "opencode-go/deepseek-v4-flash",
+      "variant": "high",
+      "subtask": true,
+      "template": "Research this thoroughly and return concise findings with relevant file paths, commands, URLs, or source notes.",
     },
-    "plan": {
+    "review": {
+      "description": "Review changes for bugs, regressions, and missing tests",
+      "agent": "plan",
       "model": "opencode-go/glm-5.2",
       "variant": "high",
+      "template": "Review the relevant changes. Prioritize bugs, behavioral regressions, security issues, and missing tests. Lead with findings and include file/line references when available.",
+    },
+  },
+  "agent": {
+    "build": {
+      "model": "opencode-go/deepseek-v4-pro",
+      "variant": "high",
+      "steps": 24,
+    },
+    "plan": { "model": "opencode-go/glm-5.2", "variant": "high", "steps": 10 },
+    "explore": {
+      "model": "opencode-go/deepseek-v4-flash",
+      "variant": "high",
+      "steps": 14,
+    },
+    "general": {
+      "model": "opencode-go/minimax-m3",
+      "variant": "thinking",
+      "steps": 18,
+    },
+    "summary": {
+      "model": "opencode-go/deepseek-v4-flash",
+      "variant": "medium",
+      "steps": 2,
+    },
+    "compaction": {
+      "model": "opencode-go/deepseek-v4-flash",
+      "variant": "medium",
+      "steps": 3,
+    },
+    "title": {
+      "model": "opencode-go/minimax-m3",
+      "variant": "none",
+      "steps": 1,
     },
   },
 }

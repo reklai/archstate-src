@@ -37,7 +37,6 @@ button {
     text-decoration-color: transparent;
 }
 
-button:focus,
 button:hover {
     color: @mac_text;
     background-color: @mac_surface_hover;
@@ -49,15 +48,12 @@ button:active {
     border-color: @mac_border_focus;
 }
 
-#shutdown:focus,
 #shutdown:hover {
     border-color: @mac_red;
     color: rgb(255, 214, 209);
 }
 
-#reboot:focus,
 #reboot:hover,
-#suspend:focus,
 #suspend:hover {
     border-color: @mac_yellow;
 }

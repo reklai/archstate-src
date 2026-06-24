@@ -43,11 +43,12 @@
 # # Empty values are used to reset config keys to default.
 # key =
 #  Terminal Decorations
-background-opacity = 0.8
+background = #000000
+background-opacity = 0.7
 background-blur = false
 window-decoration = false
 font-family = "MesloLGS NF Regular"
-background = #000000
+theme = opencode
 command = /usr/bin/bash
 
 # Keybind section

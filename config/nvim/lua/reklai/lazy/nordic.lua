@@ -46,8 +46,10 @@ return {
 					highlights.WinBar = { fg = palette.gray5, bg = "#242629" }
 					highlights.WinBarNC = { fg = palette.gray4, bg = "#1d2023" }
 					-- mini.indentscope line in Nord's pink (sitruuna uses blue,
-					-- set in themes/sitruuna.lua).
+					-- set in themes/sitruuna.lua). Uniform across the block;
+					-- SymbolOff matches so border lines aren't flagged.
 					highlights.MiniIndentscopeSymbol = { fg = "#B48EAD", nocombine = true }
+					highlights.MiniIndentscopeSymbolOff = { fg = "#B48EAD", nocombine = true }
 					-- Override nordic's float bg with our opacity-aware version.
 					highlights.NormalFloat = { bg = float_bg }
 				end,

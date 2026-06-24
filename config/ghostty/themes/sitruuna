@@ -1,0 +1,38 @@
+background = #181a1b
+foreground = #d1d1d1
+cursor-color = #7398dd
+cursor-text = #181a1b
+selection-background = #2D3032
+selection-foreground = #d1d1d1
+
+# ANSI 0 (black)        / 8  (bright black)
+palette = 0=#131515
+palette = 8=#5c6366
+
+# ANSI 1 (red)          / 9  (bright red)
+palette = 1=#c15959
+palette = 9=#c15959
+
+# ANSI 2 (green)        / 10 (bright green) — func, sitruuna has no pure green
+palette = 2=#a3db81
+palette = 10=#a3db81
+
+# ANSI 3 (yellow)       / 11 (bright yellow)
+palette = 3=#FAC03B
+palette = 11=#ffb354
+
+# ANSI 4 (blue)         / 12 (bright blue)
+palette = 4=#7398dd
+palette = 12=#7398dd
+
+# ANSI 5 (magenta)      / 13 (bright magenta)
+palette = 5=#ca70d6
+palette = 13=#a29bfe
+
+# ANSI 6 (cyan)         / 14 (bright cyan) — string/teal, sitruuna has no cyan
+palette = 6=#37ad82
+palette = 14=#37ad82
+
+# ANSI 7 (white)        / 15 (bright white)
+palette = 7=#d1d1d1
+palette = 15=#d1d1d1

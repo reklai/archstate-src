@@ -124,12 +124,10 @@ local function opts()
 			hl.Folded = { fg = s.fg_alt, bg = s.statusline }
 			hl.NonText = { fg = s.comment }
 
-			-- Active indent scope guide (muted periwinkle -- a dedicated
-			-- non-syntax color like nordic's pink, so the indent line never
-			-- competes with type/class/namespace tokens; the quietest of
-			-- the three themes' guides)
+			-- Active indent scope guide (muted periwinkle -- uniform across
+			-- the block; SymbolOff matches so border lines aren't flagged).
 			hl.MiniIndentscopeSymbol = { fg = s.indent, nocombine = true }
-			hl.MiniIndentscopeSymbolOff = { fg = s.error, nocombine = true }
+			hl.MiniIndentscopeSymbolOff = { fg = s.indent, nocombine = true }
 
 			-- Legacy syntax groups
 			hl.Comment = { fg = s.comment }
