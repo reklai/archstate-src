@@ -7,6 +7,9 @@
 -- tokenColors (dark_plus overrides dark_vs; the two JSONs are merged with
 -- the more-specific scope winning). Distinctive Dark+ rules:
 --   * Comments are a muted blue-grey (#5c6366, from sitruuna's ramp), plain
+--   * Highlights (selection, search, match-paren, popup-menu) are non-blue:
+--     selection is opencode's dark grey (#2D3032), accent is opencode's
+--     warm peach (#fab283) — a deliberate departure from Dark+'s blue chrome
 --   * keyword.control (if/for/return/import/exception) is purple (#C586C0),
 --     while storage/keyword/general keywords are blue (#569CD6)
 --   * Variables are light blue (#9CDCFE), variable.builtin (this/self) blue
@@ -15,8 +18,9 @@
 --   * Numbers are light green (#B5CEA8)
 --
 -- Surfaces reuse sitruuna's near-black ramp for visual consistency across
--- themes (bg #181a1b, panels, floats, statusline); only selection (#264F78)
--- and cursorline (#2A2D2E) are Dark+'s known default chrome values.
+-- themes (bg #181a1b, panels, floats, statusline). Selection (#2D3032) and
+-- accent (#fab283) follow opencode's warm non-blue approach; cursorline
+-- (#2A2D2E) is Dark+'s default lineHighlight.
 --
 -- Loaded by lazy/tokyonight.lua when vim.g.active_theme == "darkplus".
 -- Peer themes sitruuna and opencode live in the same themes/ directory.
@@ -29,7 +33,7 @@ local palette = {
 	darker = "#131515",
 	light_bg = "#1d2023",
 	lighter_bg = "#242629",
-	selection = "#264F78",       -- Dark+ editor.selectionBackground (Q3)
+	selection = "#2D3032",       -- opencode visual_bg (warm dark grey, not blue)
 	cursorline = "#2A2D2E",      -- Dark+ editor.lineHighlightBackground (Q3)
 	statusline = "#242629",
 
@@ -40,12 +44,12 @@ local palette = {
 
 	-- Borders
 	border = "#242629",          -- sitruuna lighter_bg
-	border_active = "#007ACC",   -- Dark+ accent (activityBarBadge etc.)
+	border_active = "#fab283",   -- opencode primary (warm orange accent)
 	indent_active = "#707070",   -- active indent guide (dark_vs)
 	indent_inactive = "#404040", -- inactive indent guide (dark_vs)
 
 	-- Roles (semantic colors from dark_plus.json over dark_vs.json)
-	accent = "#007ACC",          -- activityBarBadge.background / focus borders
+	accent = "#fab283",          -- opencode primary (warm peach/orange, not blue)
 	keyword_blue = "#569CD6",    -- storage / keyword / tag / preprocessor / constant.language / boolean
 	keyword_purple = "#C586C0",  -- keyword.control (if/for/return/import/exception)
 	function_yellow = "#DCDCAA",-- functions
