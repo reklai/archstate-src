@@ -63,8 +63,8 @@ return { -- Useful plugin to show you pending keybinds.
 
 		-- Document existing key chains
 		spec = {
-			{ "<leader>s", group = "[S]earch" },
-			{ "<leader>t", group = "[T]oggle" },
+			{ "<leader>p", group = "[P]roject Search" },
+			{ "<leader>t", group = "[T]oggle Diagnostics" },
 		},
 	},
 }

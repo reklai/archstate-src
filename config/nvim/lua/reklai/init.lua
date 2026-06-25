@@ -5,7 +5,7 @@ require("reklai.remap")
 -- Set before plugins load; each theme spec applies itself only when selected.
 -- "sitruuna", "opencode", and "darkplus" all reskin tokyonight.nvim via
 -- lazy/tokyonight.lua; their palettes live in lua/reklai/themes/*.lua.
-vim.g.active_theme = "darkplus"
+vim.g.active_theme = "sitruuna"
 
 -- Theme saturation scale (sitruuna + opencode + darkplus). Scales HSL saturation
 -- of the chromatic palette tokens at opts() time; greys are a no-op.
