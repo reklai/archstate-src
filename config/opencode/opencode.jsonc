@@ -13,7 +13,7 @@
       "model": "opencode-go/deepseek-v4-flash",
       "variant": "high",
       "subtask": true,
-      "template": "Research this thoroughly and return concise findings with relevant file paths, commands, URLs, or source notes.",
+      "template": "Research this thoroughly and return concise findings with relevant file paths, commands, URLs, or source notes: Provide thorough, detailed responses that explore topics from multiple angles. Include relevant context, examples, nuances, and implications. Structure information clearly with appropriate depth, covering edge cases and related considerations. Aim for completeness while maintaining clarity and organization.",
     },
     "reverse": {
       "description": "Reverse engineer code behavior, architecture, data flow, and implementation details",
