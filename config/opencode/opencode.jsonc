@@ -23,6 +23,14 @@
       "subtask": true,
       "template": "Reverse engineer this target in read-only mode. Focus on architecture, entrypoints, data flow, control flow, important abstractions, hidden assumptions, invariants, security-sensitive behavior, and implementation notes. Return concise findings with file paths and line references where possible.",
     },
+    "research-free": {
+      "description": "Research using the currently active agent/model (no forced model). Use when you want research to inherit the session's current agent.",
+      "template": "Research this thoroughly and return concise findings with relevant file paths, commands, URLs, or source notes: Provide thorough, detailed responses that explore topics from multiple angles. Include relevant context, examples, nuances, and implications. Structure information clearly with appropriate depth, covering edge cases and related considerations. Aim for completeness while maintaining clarity and organization. $ARGUMENTS",
+    },
+    "reverse-free": {
+      "description": "Reverse engineer using the currently active agent/model (no forced model). Use when you want reverse engineering to inherit the session's current agent.",
+      "template": "Reverse engineer this target in read-only mode. Focus on architecture, entrypoints, data flow, control flow, important abstractions, hidden assumptions, invariants, security-sensitive behavior, and implementation notes. Return concise findings with file paths and line references where possible. $ARGUMENTS",
+    },
     "review": {
       "description": "Review changes for bugs, regressions, and missing tests",
       "agent": "plan",
