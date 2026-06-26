@@ -4,7 +4,7 @@
   "small_model": "opencode-go/minimax-m3",
   "tool_output": {
     "max_lines": 2000,
-    "max_bytes": 60000,
+    "max_bytes": 51500,
   },
   "command": {
     "research": {
@@ -15,11 +15,17 @@
       "subtask": true,
       "template": "Research this thoroughly and return concise findings with relevant file paths, commands, URLs, or source notes.",
     },
+    "reverse": {
+      "description": "Reverse engineer code behavior, architecture, data flow, and implementation details",
+      "agent": "explore",
+      "model": "opencode-go/deepseek-v4-flash",
+      "variant": "high",
+      "subtask": true,
+      "template": "Reverse engineer this target in read-only mode. Focus on architecture, entrypoints, data flow, control flow, important abstractions, hidden assumptions, invariants, security-sensitive behavior, and implementation notes. Return concise findings with file paths and line references where possible.",
+    },
     "review": {
       "description": "Review changes for bugs, regressions, and missing tests",
       "agent": "plan",
-      "model": "opencode-go/glm-5.2",
-      "variant": "high",
       "template": "Review the relevant changes. Prioritize bugs, behavioral regressions, security issues, and missing tests. Lead with findings and include file/line references when available.",
     },
   },
@@ -27,18 +33,22 @@
     "build": {
       "model": "opencode-go/deepseek-v4-pro",
       "variant": "high",
-      "steps": 24,
+      "steps": 40,
     },
-    "plan": { "model": "opencode-go/glm-5.2", "variant": "high", "steps": 10 },
+    "plan": {
+      "model": "github-copilot/gpt-5.5",
+      "variant": "xhigh",
+      "steps": 12,
+    },
     "explore": {
       "model": "opencode-go/deepseek-v4-flash",
       "variant": "high",
-      "steps": 14,
+      "steps": 24,
     },
     "general": {
-      "model": "opencode-go/minimax-m3",
-      "variant": "thinking",
-      "steps": 18,
+      "model": "opencode-go/deepseek-v4-flash",
+      "variant": "high",
+      "steps": 20,
     },
     "summary": {
       "model": "opencode-go/deepseek-v4-flash",
@@ -55,5 +65,10 @@
       "variant": "none",
       "steps": 1,
     },
+  },
+  "compaction": {
+    "auto": true,
+    "prune": true,
+    "tail_turns": 6,
   },
 }
