@@ -28,6 +28,10 @@ return { -- Autocompletion LSP
 				-- },
 			},
 			opts = {},
+			config = function(_, opts)
+				require("luasnip").setup(opts)
+				require("reklai.snippets.java").setup()
+			end,
 		},
 		"folke/lazydev.nvim",
 	},

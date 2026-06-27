@@ -30,6 +30,7 @@ return {
 			"cpp",
 			"go",
 			"python",
+			"java",
 			"javascript",
 			"typescript",
 			"tsx",

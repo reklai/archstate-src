@@ -27,6 +27,7 @@ return { -- Autoformat
 			rust = { "rustfmt" },
 			c = { "clang_format" },
 			cpp = { "clang_format" },
+			java = { "google-java-format" },
 			javascript = { "prettier", "eslint_d" },
 			javascriptreact = { "prettier", "eslint_d" },
 			typescript = { "prettier", "eslint_d" },

@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=Mango (GPU Auto)
+Comment=Mango with automatic single-GPU DRM device selection
+Exec=/home/reklai/.config/mango/scripts/mango-gpu-auto-session.sh
+Type=Application
+DesktopNames=mango;wlroots

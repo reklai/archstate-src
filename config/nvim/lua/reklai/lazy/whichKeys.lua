@@ -64,6 +64,7 @@ return { -- Useful plugin to show you pending keybinds.
 		-- Document existing key chains
 		spec = {
 			{ "<leader>p", group = "[P]roject Search" },
+			{ "<leader>j", group = "[J]ava" },
 			{ "<leader>t", group = "[T]oggle Diagnostics" },
 		},
 	},

@@ -321,6 +321,11 @@ return {
 			"gofumpt",
 			"golangci-lint",
 			"codelldb",
+			"jdtls",
+			"java-debug-adapter",
+			"java-test",
+			"google-java-format",
+			"vscode-spring-boot-tools",
 		})
 		require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 

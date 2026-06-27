@@ -11,6 +11,13 @@ set -euo pipefail
 command -v wlr-randr >/dev/null 2>&1 || exit 0
 command -v jq >/dev/null 2>&1 || exit 0
 
+profile_file="${XDG_RUNTIME_DIR:-/tmp}/mango-gpu-current-profile"
+if [ -r "$HOME/.config/mango/scripts/gpu-profile-lib.sh" ]; then
+  # shellcheck source=/dev/null
+  . "$HOME/.config/mango/scripts/gpu-profile-lib.sh"
+  profile_file="$(mango_gpu_current_profile_file)"
+fi
+
 outputs_json="$(wlr-randr --json 2>/dev/null || true)"
 [ -n "$outputs_json" ] || exit 0
 
@@ -91,6 +98,7 @@ if [ -n "$external" ] && enable_best "$external"; then
     [ "$other" = "$external" ] && continue
     wlr-randr --output "$other" --off >/dev/null 2>&1 || true
   done < <(printf '%s\n' "$outputs_json" | jq -r '.[].name')
+  printf 'nvidia-external\n' >"$profile_file"
   exit 0
 fi
 
@@ -99,4 +107,5 @@ internal="$(select_output '(.name | startswith("eDP-"))')"
 if [ -n "$internal" ]; then
   enable_best "$internal" ||
     wlr-randr --output "$internal" --on --preferred --pos 0,0 >/dev/null 2>&1 || true
+  printf 'amd-internal\n' >"$profile_file"
 fi
