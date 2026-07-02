@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
-# Helpers for selecting a single DRM GPU for the Mango session.
+# Helpers for selecting exactly one DRM GPU for the Mango session.
+# NVIDIA is used when a NVIDIA-wired external output is connected; otherwise
+# AMD is used for the internal panel and as the conservative fallback.
 
 MANGO_NVIDIA_PCI="${MANGO_NVIDIA_PCI:-0000:01:00.0}"
 MANGO_AMD_PCI="${MANGO_AMD_PCI:-0000:69:00.0}"
@@ -60,33 +62,21 @@ mango_has_connected_internal_on_pci() {
 
 mango_desired_gpu_profile() {
   if mango_has_connected_external_on_pci "$MANGO_NVIDIA_PCI"; then
-    printf 'nvidia-external\n'
+    printf 'nvidia-only\n'
     return 0
   fi
 
-  if mango_has_connected_external_on_pci "$MANGO_AMD_PCI"; then
-    printf 'amd-internal\n'
-    return 0
-  fi
-
-  if mango_has_connected_internal_on_pci "$MANGO_AMD_PCI"; then
-    printf 'amd-internal\n'
-    return 0
-  fi
-
-  # Conservative fallback: the laptop panel is normally the path that can run
-  # without the discrete GPU.
-  printf 'amd-internal\n'
+  printf 'amd-only\n'
 }
 
 mango_drm_devices_for_profile() {
   local profile="$1" card
 
   case "$profile" in
-    nvidia-external)
+    nvidia-only)
       card="$(mango_card_for_pci "$MANGO_NVIDIA_PCI")" || return 1
       ;;
-    amd-internal)
+    amd-only)
       card="$(mango_card_for_pci "$MANGO_AMD_PCI")" || return 1
       ;;
     *)

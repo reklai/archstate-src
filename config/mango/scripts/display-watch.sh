@@ -2,7 +2,9 @@
 # Watch display hotplug state and reapply the display profile.
 set -euo pipefail
 
-lock_dir="${XDG_RUNTIME_DIR:-/tmp}/mango-display-watch.lock"
+lock_key="${MANGO_INSTANCE_SIGNATURE:-${XDG_SESSION_ID:-default}}"
+lock_key="${lock_key##*/}"
+lock_dir="${XDG_RUNTIME_DIR:-/tmp}/mango-display-watch-${lock_key}.lock"
 if ! mkdir "$lock_dir" 2>/dev/null; then
   exit 0
 fi

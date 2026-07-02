@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Display profile:
-#   * External plugged in -> drive the external at the same refresh rate as the
-#     internal panel when it can, then switch the internal panel off.
+#   * External plugged in -> drive the external at its highest-refresh mode,
+#     choosing the highest resolution available at that refresh, then switch the
+#     internal panel off.
 #   * No usable external     -> fall back to the internal panel.
 #
 # Each candidate mode is applied and then verified actually current, so a mode
@@ -18,17 +19,20 @@ if [ -r "$HOME/.config/mango/scripts/gpu-profile-lib.sh" ]; then
   profile_file="$(mango_gpu_current_profile_file)"
 fi
 
-outputs_json="$(wlr-randr --json 2>/dev/null || true)"
-[ -n "$outputs_json" ] || exit 0
+current_gpu_profile() {
+  if declare -F mango_desired_gpu_profile >/dev/null; then
+    mango_desired_gpu_profile 2>/dev/null && return 0
+  fi
+  printf 'amd-only\n'
+}
 
-# The internal panel's top refresh -- the fps the laptop natively runs at. The
-# external is matched to this rate when possible (null if there is no panel).
-target_refresh="$(
-  printf '%s\n' "$outputs_json" |
-    jq -c '[ .[] | select(.name | startswith("eDP-")) | .modes[]?
-             | select(.refresh > 0) | .refresh ]
-           | if length > 0 then max else null end'
-)"
+outputs_json=""
+for _ in 1 2 3 4 5; do
+  outputs_json="$(wlr-randr --json 2>/dev/null || true)"
+  [ -n "$outputs_json" ] && break
+  sleep 0.2
+done
+[ -n "$outputs_json" ] || exit 0
 
 # Rank an output by its best mode: [refresh, area, preferred], highest wins.
 score='
@@ -41,20 +45,15 @@ score='
     end
 '
 
-# Candidate modes for one output, best first. Prefer modes whose refresh matches
-# the internal panel ($target_refresh); then nearest refresh, then highest
-# refresh, then resolution. With no panel ($target == null) this degrades to
-# plain highest-refresh-first.
+# Candidate modes for one output, best first. Prefer highest refresh, then the
+# highest resolution available at that refresh.
 candidates='
   .modes
   | map(select(.width > 0 and .height > 0 and .refresh > 0))
   | sort_by([
-      (if $target != null and (((.refresh - $target) | if . < 0 then -. else . end) < 1)
-         then 0 else 1 end),
-      (if $target != null
-         then ((.refresh - $target) | if . < 0 then -. else . end) else 0 end),
       (0 - .refresh),
-      (0 - (.width * .height))
+      (0 - (.width * .height)),
+      (0 - (.preferred // false | if . then 1 else 0 end))
     ])
   | .[] | "\(.width) \(.height) \(.refresh)"
 '
@@ -75,8 +74,8 @@ mode_active() {
               and ((.refresh - $r) | if . < 0 then -. else . end) < 1)))' >/dev/null 2>&1
 }
 
-# Bring $1 up at the most-preferred refresh that genuinely applies (matching the
-# internal panel first). Returns non-zero if no advertised mode could be driven.
+# Bring $1 up at the best advertised mode that genuinely applies. Returns
+# non-zero if no advertised mode could be driven.
 enable_best() {
   local out="$1" w h r
   while read -r w h r; do
@@ -84,8 +83,7 @@ enable_best() {
     wlr-randr --output "$out" --on --mode "${w}x${h}@${r}Hz" --pos 0,0 >/dev/null 2>&1 || true
     mode_active "$out" "$w" "$h" "$r" && return 0
   done < <(printf '%s\n' "$outputs_json" |
-             jq -r --arg o "$out" --argjson target "$target_refresh" \
-                '.[] | select(.name == $o) | '"$candidates")
+             jq -r --arg o "$out" '.[] | select(.name == $o) | '"$candidates")
   return 1
 }
 
@@ -98,7 +96,7 @@ if [ -n "$external" ] && enable_best "$external"; then
     [ "$other" = "$external" ] && continue
     wlr-randr --output "$other" --off >/dev/null 2>&1 || true
   done < <(printf '%s\n' "$outputs_json" | jq -r '.[].name')
-  printf 'nvidia-external\n' >"$profile_file"
+  current_gpu_profile >"$profile_file"
   exit 0
 fi
 
@@ -107,5 +105,5 @@ internal="$(select_output '(.name | startswith("eDP-"))')"
 if [ -n "$internal" ]; then
   enable_best "$internal" ||
     wlr-randr --output "$internal" --on --preferred --pos 0,0 >/dev/null 2>&1 || true
-  printf 'amd-internal\n' >"$profile_file"
+  current_gpu_profile >"$profile_file"
 fi

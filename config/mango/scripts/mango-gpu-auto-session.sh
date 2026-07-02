@@ -11,11 +11,14 @@ export MANGO_GPU_PROFILE="$profile"
 printf '%s\n' "$profile" >"$(mango_gpu_started_profile_file)"
 
 case "$profile" in
-  nvidia-external)
+  nvidia-only)
     export __GLX_VENDOR_LIBRARY_NAME=nvidia
+    export __VK_LAYER_NV_optimus=NVIDIA_only
     export GBM_BACKEND=nvidia-drm
+    unset __NV_PRIME_RENDER_OFFLOAD
+    unset DRI_PRIME
     ;;
-  amd-internal)
+  amd-only)
     unset __GLX_VENDOR_LIBRARY_NAME
     unset __NV_PRIME_RENDER_OFFLOAD
     unset __VK_LAYER_NV_optimus
